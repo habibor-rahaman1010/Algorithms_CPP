@@ -13,7 +13,7 @@ void DFS(int node){
 
     for(int adj_node : adj_list[node]){
         if(visited[adj_node] == 0){
-            DFS(node);
+            DFS(adj_node);
         }
     }
 
