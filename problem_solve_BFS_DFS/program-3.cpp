@@ -1,3 +1,5 @@
+//flood fill problem solving using BFS in c++ program...
+
 //maze traversal in a grid with Single Source Shortest Path (SSSP) in c++ program...
 
 #include <iostream>
@@ -10,7 +12,6 @@ const int N = 2001;
 int n, m;
 int maze[N][N];
 int visited[N][N];
-int level[N][N];
 int dx[] = {0, 0, -1, 1};
 int dy[] = {1, -1, 0, 0};
 
@@ -44,7 +45,6 @@ bool is_visited(pair<int, int>coordinat){
 void BFS(pair<int, int>src){
     queue<pair<int, int>>q;
     visited[src.first][src.second];
-    level[src.first][src.second] = 0;
     q.push(src);
 
     while(!q.empty()){
@@ -59,21 +59,25 @@ void BFS(pair<int, int>src){
             pair<int, int>adj_node = {new_x, new_y};
             if(is_inside(adj_node) && is_save(adj_node) && is_visited(adj_node)){
                 visited[new_x][new_y] = 1;
-                level[new_x][new_y] = level[x][y] + 1;
                 q.push(adj_node);
             }
         }
     }
 }
 
-int main() {
-    cin>>n >>m;
-    pair<int, int>src, dst;
+pair<int, int>find_unvisited(){
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
-            level[i][j] = -1;
+            if(visited[i][j] == 0 && maze[i][j] == 0){
+                return {i, j};
+            }
         }
     }
+    return {-1, -1};
+}
+
+int main() {
+    cin>>n >>m;
 
     for(int i = 0; i < n; i++){
        string input;
@@ -82,32 +86,29 @@ int main() {
             if(input[j] == '#'){
                 maze[i][j] = -1;
             }
-            else if(input[j] == 'A'){
-                src = {i, j};
-            }
-            else if(input[j] == 'B'){
-                dst = {i, j};
-            }
        }
     }
 
-    BFS(src);
-    if(level[dst.first][dst.second] == -1){
-        cout<<"No" <<"\n";
-    }
-    else{
-        cout<<"Yes" <<"\n";
-        cout<<level[dst.first][dst.second] <<"\n";
+    int room_count = 0;
+    while(true){
+        pair<int, int>unvisited_position = find_unvisited();
+        if(unvisited_position == pair<int, int>(-1, -1)){
+            break;
+        }
+        BFS(unvisited_position);
+        room_count++;
     }
 
+    cout<<"room count: "<<room_count <<"\n";
 return 0;
 }
 
 /*
 5 8
 ########
-#.A#...#
-#.##.#B#
-#......#
+#..#...#
+####.#.#
+#..#...#
 ########
 */
+
