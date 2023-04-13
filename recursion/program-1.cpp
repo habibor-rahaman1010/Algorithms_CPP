@@ -1,19 +1,21 @@
-//summation 1 to n number in c++ program...
+// summation 1 to n number in c++ program...
 
 #include <iostream>
 using namespace std;
 
 int sum(int n){
-    if(n == 1){
-        return 1;
+    if (n == 1)
+    {
+        return 1; 
     }
     return n + sum(n - 1);
 }
 
-int main() {
+int main()
+{
     int n = 10;
     int ans = sum(n);
-    cout<<ans <<"\n";
+    cout << ans << "\n";
 
-return 0;
+    return 0;
 }
