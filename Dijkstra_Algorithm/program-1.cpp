@@ -41,5 +41,10 @@ int main() {
     int src = 1;
     dijkstra(src);
 
+    for(int i = 1; i <= nodes; i++){
+        cout<<d[i] <<" ";
+    }
+    cout<<"\n";
+
 return 0;
 }
