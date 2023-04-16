@@ -1,3 +1,5 @@
+//sortest path print using bellman ford algorithm...
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -18,6 +20,27 @@ int main() {
         cin >> u >> v >> w;
         adj_list[u].push_back({v, w});
     }
+
+    int src = 1;
+    d[src] = 0;
+
+    for(int i = 1; i <= n - 1; i++){
+        for(int node = 1; node <= n; node++){
+            for(pair<int, int>adj_node : adj_list[node]){
+                int u = node;
+                int v = adj_node.first;
+                int w = adj_node.second;
+                if(d[u] + w < d[v]){
+                    d[v] = d[u] + w; 
+                }
+            }
+        }
+    }
+
+    for(int i = 1; i <= n; i++){
+        cout <<d[i] <<" ";
+    }
+    cout<<"\n";
 
 return 0;
 }
