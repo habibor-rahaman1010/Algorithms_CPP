@@ -41,7 +41,7 @@ int main() {
         }
     }
 
-    if(nagative_cycle){
+    if(!nagative_cycle){
         cout<<"Not exist nagative cycle \n";
         for(int i = 1; i <= n; i++){
             cout <<d[i] <<" ";
