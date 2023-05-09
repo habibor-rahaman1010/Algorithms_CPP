@@ -7,18 +7,18 @@ int h[N];
 int dp[N];
 
 int ston(int n){
-    if(n == 1) return 0;
-    if(dp[n] != -1) return dp[n];
+    dp[1] = 0;
 
-    int ans1 = ston(n - 1) + abs(h[n] - h[n - 1]);
-    if(n == 2){
-        dp[n] = ans1;
-        return ans1;
+    for(int i = 2; i <= n; i++){
+        int ans1 = dp[i - 1] + abs(h[i] - h[i - 1]);
+        if(i == 2){
+            dp[i] = ans1;
+            continue;
+        }
+        int ans2 = dp[i - 2] + abs(h[i] - h[i - 2]);
+        dp[i] = min(ans1, ans2);
     }
-    int ans2 = ston(n - 2) + abs(h[n] - h[n - 2]);
-    int ans = min(ans1, ans2);
-    dp[n] = ans;
-    return ans;
+    return dp[n];
 }
 int main(){
     int n;
